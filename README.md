@@ -2,7 +2,7 @@
 
 ## Overview
 
-**InfantCareCompass** is a comprehensive web application designed to assist new and busy parents in managing their child's healthcare needs. The platform offers features such as vaccination tracking, childcare education, and more, empowering parents with a digital toolkit for effective child healthcare management. :contentReference[oaicite:0]{index=0}
+**InfantCareCompass** is a comprehensive web application designed to assist new and busy parents in managing their child's healthcare needs. The platform offers features such as vaccination tracking, childcare education, and more, empowering parents with a digital toolkit for effective child healthcare management. 
 
 ## Features
 
@@ -84,7 +84,25 @@ Create a .env file in the root directory and add the following:
    ├── package.json            # NPM package configuration
    └── README.md               # Project documentation
 
-   
 
-   
+---
 
+### Contributing
+
+We welcome contributions to enhance the functionality and features of InfantCareCompass.
+
+To contribute:
+Fork the repository.
+Create a new branch: git checkout -b feature/your-feature-name.
+Make your changes and commit them: git commit -m 'Add new feature'.
+Push to the branch: git push origin feature/your-feature-name.
+Submit a pull request detailing your changes.
+
+# Screenshot 
+
+<details>	
+ <summary><b> View </b></summary><br>
+<div style='display:flex; align-items:center; gap: 10px;' align='center'>
+    <img src="" alt="" />
+</div>
+</details>
