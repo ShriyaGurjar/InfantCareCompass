@@ -28,13 +28,13 @@
 
 ### Installation
 
-1. **Clone the repository**:
+1. **Clone the repository:**
 
    ```bash
    git clone https://github.com/Amarjha01/InfantCareCompass.git
    cd InfantCareCompass
 
-2. **Install dependencies:**:
+2. **Install dependencies:**
 
     ```bash
     # Install server dependencies
@@ -44,7 +44,7 @@
     cd client
     npm install
 
-3. **Set up environment variables:**:
+3. **Set up environment variables:**
 Create a .env file in the root directory and add the following:
 
 ```bash
