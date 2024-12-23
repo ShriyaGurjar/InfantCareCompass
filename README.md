@@ -34,3 +34,13 @@
    git clone https://github.com/Amarjha01/InfantCareCompass.git
    cd InfantCareCompass
 
+2. **Install dependencies:**:
+
+    ```bash
+    # Install server dependencies
+    npm install
+
+    # Navigate to the client directory and install dependencies
+    cd client
+    npm install
+
