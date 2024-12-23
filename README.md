@@ -47,10 +47,44 @@
 3. **Set up environment variables:**
 Create a .env file in the root directory and add the following:
 
-```bash
+   ```bash
    PORT=5000
    MONGO_URI=your_mongodb_uri
    CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
    CLOUDINARY_API_KEY=your_cloudinary_api_key
    CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
+4. **Run the application:**
+   ```bash
+   # Start the backend server
+   npm start
+
+   # In a separate terminal, navigate to the client directory and start the frontend
+   cd client
+   npm run dev
+
+
+5. **Project Structure:**
+
+   ```bash
+   InfantCareCompass/
+   ├── client/                 # React frontend
+   │   ├── public/             # Public assets
+   │   └── src/                # Source files
+   │       ├── components/     # Reusable components
+   │       ├── pages/          # Page components
+   │       ├── App.jsx         # Main App component
+   │       └── index.css       # TailwindCSS configuration
+   ├── server/                 # Node.js backend
+   │   ├── models/             # Mongoose models
+   │   ├── routes/             # API routes
+   │   ├── controllers/        # Route handlers
+   │   └── index.js            # Entry point for the server
+   ├── .env                    # Environment variables
+   ├── package.json            # NPM package configuration
+   └── README.md               # Project documentation
+
+   
+
+   
 
