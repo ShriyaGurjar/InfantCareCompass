@@ -19,7 +19,8 @@
 - **Image Management**: Cloudinary for storing and retrieving user-uploaded images.
 
 ## Getting Started
-
+<details>
+    <summary><b> Getting Started  </b></summary><br>
 ### Prerequisites
 
 - Node.js installed on your machine.
@@ -83,7 +84,7 @@ Create a .env file in the root directory and add the following:
    ├── .env                    # Environment variables
    ├── package.json            # NPM package configuration
    └── README.md               # Project documentation
-
+</details>
 
 ---
 
