@@ -28,8 +28,7 @@ async function signin(req,res) {
         res.cookie('token', token ,{ httpOnly: true, secure: true,  })
         res.cookie('refreshtoken', refreshtoken ,{ httpOnly: true, secure: true,  })
         
-            res.status(200).json({
-                message:"login successful",
+            res.status(200).json({doctor
             })
         }else{
             res.status(400).json({
@@ -57,9 +56,7 @@ async function signin(req,res) {
     res.cookie('token', token ,{ httpOnly: true, secure: true,  })
     res.cookie('refreshtoken', refreshtoken ,{ httpOnly: true, secure: true,  })
     
-        res.status(200).json({
-            message:"login successful",
-            data:token
+        res.status(200).json({user
         })
     }else{
         res.status(400).json({

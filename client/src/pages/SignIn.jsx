@@ -1,9 +1,14 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import backendAPI from '../common/backendAPI.jsx'
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { userinfo } from "../store/slices/userSlice.jsx";
 
 export default function Signin() {
+  const [isActive, setIsActive] = useState(false);
+  const dispatch =  useDispatch();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate(); 
   const onSubmit = async(data) => {
@@ -22,8 +27,13 @@ export default function Signin() {
       });
   if (signinResponse.ok) {
         const responseData = await signinResponse.json();
-        console.log("Signin Successful:", responseData);
-
+        // setIsActive(true)
+        // console.log(responseData.user);
+        const statePayload ={
+          ...responseData.user,
+          isActive: true, 
+        }
+        dispatch(userinfo(statePayload))
         // Store token or handle session if needed
         // e.g., localStorage.setItem("token", responseData.token);
 
