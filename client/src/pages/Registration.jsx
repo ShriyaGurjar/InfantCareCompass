@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-
+import backendAPI from '../common/backendAPI.jsx'
 export default function Registration() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [role, setRole] = useState("PARENT"); // Default role
@@ -16,15 +16,11 @@ export default function Registration() {
 
   const onSubmit = async (data) => {
     setIsSubmitting(true); // Disable button
-    const payload = { ...data, role: role.toLowerCase() }; // Add role to payload
-
-    const register = async (req,resp)=>({
-      
-    })
+    const payload = { ...data, role: role.toUpperCase() }; // Add role to payload
 
     try {
       // Simulate a POST request to the backend
-      const response = await fetch("https://your-backend-url.com/api/register", {
+      const response = await fetch(backendAPI.register.url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
