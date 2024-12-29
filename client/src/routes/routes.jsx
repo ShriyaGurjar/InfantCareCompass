@@ -8,7 +8,8 @@ import DoctorDetails from "../pages/DoctorDetails";
 import Registration from "../pages/Registration";
 import Signin from "../pages/SignIn";
 import HomePage from "../pages/Home";
-import ConsultationPage from "../pages/consult";
+import ConsultationPage from "../pages/consult.jsx";
+import VideoCall from '../components/videoCall.jsx'
 
 const router = createBrowserRouter([
   {
@@ -43,9 +44,13 @@ const router = createBrowserRouter([
             path: "doctordetail/:id",
             element: <DoctorDetails />,
           },
+          {
+            path: "video-call/:roomId",
+            element: <VideoCall />, // Route for VideoCall component
+          },
         ],
-      }
-      
+      },
+     
     ],
   },
   {

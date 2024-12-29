@@ -1,3 +1,8 @@
+if (typeof global === 'undefined') {
+    window.global = window;
+}
+
+
 import { createRoot } from "react-dom/client";
 import "./index.css"; // Global styles
 import { RouterProvider } from "react-router-dom"; // Correct import for RouterProvider

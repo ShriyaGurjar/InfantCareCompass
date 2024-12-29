@@ -10,6 +10,10 @@ const commnApiEndpoint = {
     url:`${backendDomain}/api/signin`,
     method:'post'
    },
+   doctorInfo:{
+    url:`${backendDomain}/api/doctorinfo`,
+    method:'get'
+   },
 }
 
 export default commnApiEndpoint;

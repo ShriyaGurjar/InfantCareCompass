@@ -2,7 +2,8 @@ import React from 'react';
 
 const About = () => {
   return (
-    <section className="bg-black text-white py-12">
+<>
+<section className="bg-black text-white py-12">
       <div className="container mx-auto px-4">
         {/* Title Section */}
         <div className="text-center mb-12">
@@ -64,6 +65,9 @@ const About = () => {
         </div>
       </div>
     </section>
+  
+</>
+  
   );
 };
 
