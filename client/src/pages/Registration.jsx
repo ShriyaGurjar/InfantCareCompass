@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import backendAPI from '../common/backendAPI.jsx'
+import backendAPI from '../common/backendAPI.jsx';
+
 export default function Registration() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [role, setRole] = useState("PARENT"); // Default role
@@ -94,6 +95,23 @@ export default function Registration() {
                   className="w-full border border-gray-300 rounded-md shadow-sm p-2 outline-none"
                 />
                 {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName.message}</p>}
+              </div>
+              <div>
+                <label className="block font-medium">About</label>
+                <textarea
+                  {...register("about", { required: "Please write about yourself" })}
+                  className="w-full border border-gray-300 rounded-md shadow-sm p-2 outline-none"
+                />
+                {errors.about && <p className="text-red-500 text-sm">{errors.about.message}</p>}
+              </div>
+              <div>
+                <label className="block font-medium">Years of Experience</label>
+                <input
+                  type="number"
+                  {...register("experience", { required: "Experience is required", min: 1 })}
+                  className="w-full border border-gray-300 rounded-md shadow-sm p-2 outline-none"
+                />
+                {errors.experience && <p className="text-red-500 text-sm">{errors.experience.message}</p>}
               </div>
             </div>
           )}

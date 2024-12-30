@@ -22,14 +22,21 @@ async function signin(req,res) {
                 id : doctor._id,
                 email:doctor.email
             }
-        const token = jwt.sign({tokendata}, process.env.TOKEN_SECRET_KEY, {expiresIn:"60m"});
-        const refreshtoken =  jwt.sign({tokendata}, process.env.TOKEN_SECRET_KEY, {expiresIn:"7d"});
+            const token =  jwt.sign(tokendata,  process.env.TOKEN_SECRET_KEY, { expiresIn: 60 * 60 * 8});
+        // const refreshtoken =  jwt.sign({tokendata}, process.env.TOKEN_SECRET_KEY, {expiresIn:"7d"});
+        const tokenOption= { 
+            httpOnly:true,
+            secure:true
+             }
+             res.cookie("token" ,token,  tokenOption).status(200).json({
+               message:"login sucessfully",
+               data : doctor,
+               success:true,
+               error:false
+             })
         
-        res.cookie('token', token ,{ httpOnly: true, secure: true,  })
-        res.cookie('refreshtoken', refreshtoken ,{ httpOnly: true, secure: true,  })
-        
-            res.status(200).json({doctor
-            })
+            // res.status(200).json({doctor
+            // })
         }else{
             res.status(400).json({
                 message:"please enter password correctly"
@@ -50,14 +57,18 @@ async function signin(req,res) {
             id : user._id,
             email: user.email
         }
-    const token = jwt.sign({tokendata}, process.env.TOKEN_SECRET_KEY, {expiresIn:"60m"});
-    const refreshtoken =  jwt.sign({tokendata}, process.env.TOKEN_SECRET_KEY, {expiresIn:"7d"});
-    
-    res.cookie('token', token ,{ httpOnly: true, secure: true,  })
-    res.cookie('refreshtoken', refreshtoken ,{ httpOnly: true, secure: true,  })
-    
-        res.status(200).json({user
-        })
+        const token =  jwt.sign(tokendata,  process.env.TOKEN_SECRET_KEY, { expiresIn: 60 * 60 * 8});
+        // const refreshtoken =  jwt.sign({tokendata}, process.env.TOKEN_SECRET_KEY, {expiresIn:"7d"});
+        const tokenOption= { 
+            httpOnly:true,
+            secure:true
+             }
+             res.cookie("token" ,token,  tokenOption).status(200).json({
+               message:"login sucessfully",
+               data : user,
+               success:true,
+               error:false
+             })
     }else{
         res.status(400).json({
             message:"please enter password correctly"

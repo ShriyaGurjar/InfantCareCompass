@@ -13,7 +13,7 @@ const DoctorDetails = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Doctor Details for: {id}</h2>
+      <h2 className="text-2xl font-bold mb-4">Doctor Details for: {"Dr. "+id}</h2>
       <span
         className="text-blue-700 text-3xl cursor-pointer"
         onClick={handleStartCall}

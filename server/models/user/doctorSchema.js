@@ -15,6 +15,10 @@ const doctorScheme = new mongoose.Schema(
           "type": String,
           "required": true
         },
+        'about': {
+          "type": String,
+          "required": true
+        },
         'email':{
             type:String,
             require:true,
@@ -32,10 +36,10 @@ const doctorScheme = new mongoose.Schema(
         //   "type": String,
         //   "required": true
         // },
-        // "yearsOfExperience": {
-        //   "type": Number,
-        //   "required": true
-        // },
+        "experience": {
+          "type": Number,
+          "required": true
+        },
         // "clinicAddress": {
         //   "type": String,
         //   "required": true

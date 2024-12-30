@@ -7,7 +7,7 @@ export const userSlice = createSlice({
     reducers:{
         userinfo(state, action){
             state.push(action.payload);
-            console.log('actionCreatorPayload:', action.payload);
+            // console.log('actionCreatorPayload:', action.payload);
             
         },
         isActive(state, action){},

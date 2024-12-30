@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import { useSelector, useDispatch } from "react-redux";
 import { userinfo } from "../store/slices/userSlice";
 import { persistor } from "../store/store.jsx";
+import commnApiEndpoint from '../common/backendAPI.jsx'
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -13,11 +14,32 @@ console.log('header',userData);
   // Extract `isActive` from the Redux store
   const isLoggedIn = userData[0]?.isActive || false;
 
-  const handleSignOut = () => {
+  const  handleSignOut = async () => {
+    try {
+      const response = await fetch(commnApiEndpoint.logout.url,{
+        method:'post',
+        credentials: 'include', 
+      })
+      console.log("response from logoutApi:",response)
+      if(response.ok){
+        // dispatch(userinfo({ isActive: false }));
+        //  // Clear the persisted Redux state
+        // persistor.purge();
+        dispatch({ type: 'RESET_STATE' });
+await persistor.purge(); // Clears persisted state from localStorage
+
+        
+        // console.log("response is ok");
+        
+      }
+    } catch (error) {
+      console.log("error in logout Api:", error)
+    }
     // Reset user state
-    dispatch(userinfo({ isActive: false }));
-    // Clear the persisted Redux state
-    persistor.purge();
+  
+  
+   
+  
   };
 
   return (

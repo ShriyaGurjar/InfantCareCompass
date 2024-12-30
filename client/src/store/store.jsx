@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { userSlice } from './slices/userSlice.jsx';
+import { doctorSlice } from './slices/doctorSlice.jsx';
 import storage from 'redux-persist/lib/storage'; // Default storage is localStorage for web
 import { persistReducer, persistStore } from 'redux-persist';
 import { combineReducers } from 'redux';
@@ -11,9 +12,18 @@ const persistConfig = {
 };
 
 // Combine Reducers
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   user: userSlice.reducer,
+  doctor: doctorSlice.reducer,
 });
+
+// Root reducer with reset functionality
+const rootReducer = (state, action) => {
+  if (action.type === 'RESET_STATE') {
+    state = undefined; // Reset the state to initial values
+  }
+  return appReducer(state, action);
+};
 
 // Create a persisted reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);

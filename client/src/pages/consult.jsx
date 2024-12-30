@@ -29,13 +29,13 @@ const ConsultationPage = () => {
           {doctorData.map((doctor, index) => ( // Iterate over doctorData
             <li key={index} className="mb-4">
               <Link
-                to={`/consultation/doctordetail/${doctor.firstName}`}
+                to={`/consultation/doctordetail/${doctor.firstName + " " +doctor.lastName}`}
                 className="block p-4 border rounded hover:bg-gray-100"
               >
-                <h3 className="font-semibold text-lg">{doctor.firstName + " " +doctor.lastName}</h3>
+                <h3 className="font-semibold text-lg">{"Dr. "+doctor.firstName + " " +doctor.lastName}</h3>
                 <p className="text-sm text-gray-500">{doctor.about}</p>
                 <p className="text-sm">Experience: {doctor.experience} years</p>
-                <p className="text-sm">Rating: {doctor.rating}⭐</p>
+                <p className="text-sm">Rating: {doctor.rating}4.5⭐</p>
               </Link>
             </li>
           ))}

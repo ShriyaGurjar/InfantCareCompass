@@ -11,4 +11,4 @@ export const doctorSlice = new createSlice({
     }
 })
 
-export const {userinfo} = userSlice.actions;
+export const {doctorInfo} = doctorSlice.actions;
