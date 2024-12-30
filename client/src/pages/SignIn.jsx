@@ -8,36 +8,42 @@ import { userinfo } from "../store/slices/userSlice.jsx";
 
 export default function Signin() {
   const [isActive, setIsActive] = useState(false);
-  const dispatch =  useDispatch();
+  const [role, setRole] = useState(""); // State to manage selected role
+  const dispatch = useDispatch();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate(); 
+
+  // Handle form submission
   const onSubmit = async(data) => {
     console.log("Submitted Data: ", data);
-    // Handle the login logic, such as API calls
-    const payload = { ...data  }
+    // Include the selected role in the payload
+    const payload = { 
+      ...data, 
+      role: role || 'PARENTS' // Default to PARENTS if no role is selected
+    };
+    
     try {
       const signinResponse = await fetch('http://localhost:3000/api/signin', {
         method: "post",
-        credentials:'include',
+        credentials: 'include',
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-        
       });
-  if (signinResponse.ok) {
-        const responseData = await signinResponse.json();
-        // setIsActive(true)
-        // console.log(responseData.user);
-        const statePayload ={
-          ...responseData.user,
-          isActive: true, 
-        }
-        dispatch(userinfo(statePayload))
-        // Store token or handle session if needed
-        // e.g., localStorage.setItem("token", responseData.token);
 
-        // Redirect to home page
+      if (signinResponse.ok) {
+        const responseData = await signinResponse.json();
+        console.log(responseData);
+        
+        // Update user state with role and activation status
+        const statePayload = {
+          ...responseData.user,
+          isActive: true,
+        };
+        dispatch(userinfo(statePayload));
+
+        // Redirect to the home page
         navigate("/");
       } else {
         console.error("Signin failed!");
@@ -45,31 +51,17 @@ export default function Signin() {
       }
     
     } catch (error) {
-      
-      
-   }
+      console.error("Signin error:", error);
+    }
   };
-
- 
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold text-center mb-6">Signin</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          
           {/* Email Field */}
-          {/* <div>
-            <label className="block font-medium">role</label>
-            <input
-              type="role"
-              {...register("role", { required: "role is required" })}
-              className="w-full border-gray-300 rounded-md shadow-sm"
-              placeholder="Ex- DOCTOR,PARENTS"
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email.message}</p>
-            )}
-          </div> */}
           <div>
             <label className="block font-medium">Email</label>
             <input
@@ -103,10 +95,43 @@ export default function Signin() {
             )}
           </div>
 
+          {/* Role Selection (Doctor or Parent) */}
+          <div>
+            <label className="block font-medium">Select Role</label>
+            <div className="flex items-center space-x-4">
+              <label className="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="role"
+                  value="DOCTOR"
+                  checked={role === "DOCTOR"}
+                  onChange={() => setRole("DOCTOR")}
+                  className="form-radio"
+                />
+                <span className="ml-2">Doctor</span>
+              </label>
+              <label className="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="role"
+                  value="PARENTS"
+                  checked={role === "PARENTS"}
+                  onChange={() => setRole("PARENTS")}
+                  className="form-radio"
+                />
+                <span className="ml-2">Parents</span>
+              </label>
+            </div>
+            {role === "" && (
+              <p className="text-red-500 text-sm">Role is required</p>
+            )}
+          </div>
+
           {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+            disabled={role === ""}
           >
             Signin
           </button>
