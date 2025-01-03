@@ -12,7 +12,6 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
     "@zegocloud/zego-uikit-prebuilt": "^2.14.0",
-    "agora-rtc-sdk-ng": "^4.23.0",
     "axios": "^1.7.9",
     "framer-motion": "^11.15.0",
     "install": "^0.13.0",
@@ -25,8 +24,7 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.0",
     "redux-persist": "^6.0.0",
-    "simple-peer": "^9.11.1",
-    "socket.io-client": "^4.8.1"
+    "simple-peer": "^9.11.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
