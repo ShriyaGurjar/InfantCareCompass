@@ -12,6 +12,8 @@ const ConsultationPage = () => {
       });
       const data = await response.json(); // Parse the response
       setDoctorData(data.data); // Update state with fetched data
+      console.log("doctor details:", data.data);
+      
     } catch (error) {
       console.error('Something went wrong:', error);
     }
@@ -29,7 +31,7 @@ const ConsultationPage = () => {
           {doctorData.map((doctor, index) => ( // Iterate over doctorData
             <li key={index} className="mb-4">
               <Link
-                to={`/consultation/doctordetail/${doctor.firstName + " " +doctor.lastName}`}
+                to={`/consultation/doctordetail/${doctor?._id}`}
                 className="block p-4 border rounded hover:bg-gray-100"
               >
                 <h3 className="font-semibold text-lg">{"Dr. "+doctor.firstName + " " +doctor.lastName}</h3>

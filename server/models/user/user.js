@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const userSchema = new mongoose.Schema({
     'kidName':String,
     'dob':{
-        type:Number,
+        type:String,
         require:true
     },
     'fatherName':{

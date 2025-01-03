@@ -1,5 +1,5 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const ContactUs = () => {
   const {
@@ -8,9 +8,31 @@ const ContactUs = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log('Form Data:', data);
-    alert('Message sent successfully!');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("http://localhost:3000/api/contact-us", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        alert("Message sent successfully!");
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error}`);
+      }
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      alert("An error occurred. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -33,9 +55,9 @@ const ContactUs = () => {
               <input
                 id="name"
                 type="text"
-                {...register('name', { required: 'Name is required' })}
+                {...register("name", { required: "Name is required" })}
                 className={`mt-1 block w-full px-4 py-2 border rounded-md ${
-                  errors.name ? 'border-red-500' : 'border-gray-300'
+                  errors.name ? "border-red-500" : "border-gray-300"
                 } focus:ring-indigo-500 focus:border-indigo-500`}
                 placeholder="Enter your full name"
               />
@@ -50,15 +72,15 @@ const ContactUs = () => {
               <input
                 id="email"
                 type="email"
-                {...register('email', { 
-                  required: 'Email is required',
+                {...register("email", {
+                  required: "Email is required",
                   pattern: {
                     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: 'Enter a valid email address',
+                    message: "Enter a valid email address",
                   },
                 })}
                 className={`mt-1 block w-full px-4 py-2 border rounded-md ${
-                  errors.email ? 'border-red-500' : 'border-gray-300'
+                  errors.email ? "border-red-500" : "border-gray-300"
                 } focus:ring-indigo-500 focus:border-indigo-500`}
                 placeholder="Enter your email address"
               />
@@ -73,9 +95,9 @@ const ContactUs = () => {
               <input
                 id="subject"
                 type="text"
-                {...register('subject', { required: 'Subject is required' })}
+                {...register("subject", { required: "Subject is required" })}
                 className={`mt-1 block w-full px-4 py-2 border rounded-md ${
-                  errors.subject ? 'border-red-500' : 'border-gray-300'
+                  errors.subject ? "border-red-500" : "border-gray-300"
                 } focus:ring-indigo-500 focus:border-indigo-500`}
                 placeholder="Enter the subject of your message"
               />
@@ -89,9 +111,9 @@ const ContactUs = () => {
               </label>
               <textarea
                 id="message"
-                {...register('message', { required: 'Message is required' })}
+                {...register("message", { required: "Message is required" })}
                 className={`mt-1 block w-full px-4 py-2 border rounded-md ${
-                  errors.message ? 'border-red-500' : 'border-gray-300'
+                  errors.message ? "border-red-500" : "border-gray-300"
                 } focus:ring-indigo-500 focus:border-indigo-500`}
                 placeholder="Write your message here"
                 rows={4}
@@ -103,9 +125,12 @@ const ContactUs = () => {
             <div className="text-center">
               <button
                 type="submit"
-                className="bg-indigo-600 text-white py-2 px-6 rounded-md hover:bg-indigo-700 transition-colors"
+                className={`bg-indigo-600 text-white py-2 px-6 rounded-md transition-colors ${
+                  isSubmitting ? "bg-gray-400 cursor-not-allowed" : "hover:bg-indigo-700"
+                }`}
+                disabled={isSubmitting}
               >
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
               </button>
             </div>
           </form>

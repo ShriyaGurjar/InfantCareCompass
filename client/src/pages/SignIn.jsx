@@ -34,11 +34,13 @@ export default function Signin() {
 
       if (signinResponse.ok) {
         const responseData = await signinResponse.json();
-        console.log(responseData);
+        console.log('response data:',responseData);
+        console.log('response data user id:', responseData.data?._id);
         
         // Update user state with role and activation status
         const statePayload = {
-          ...responseData.user,
+          ...responseData.data,
+          
           isActive: true,
         };
         dispatch(userinfo(statePayload));

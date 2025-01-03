@@ -1,56 +1,53 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import { FaVideo } from "react-icons/fa6";
-import axios from "axios";
-import AgoraRTC from "agora-rtc-sdk-ng";
+import React, { useCallback, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { FaVideo } from "react-icons/fa";
 
 const DoctorDetails = () => {
   const { id } = useParams(); // Fetch doctor ID from the URL
-  const [channelName, setChannelName] = useState("");
-  const [rtcClient, setRtcClient] = useState(null);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const handleStartCall = async () => {
+  const handleJoinRoom = useCallback(async () => {
+    console.log("Navigating to room with ID:", id);
+    setLoading(true);
+
     try {
-      // Step 1: Generate Agora Token
-      const uid = Math.floor(Math.random() * 10000); // Generate a random UID
-      const response = await axios.post("http://localhost:3000/api/generate-token", {
-        channelName: `call_${id}`, // Channel name tied to the doctor ID
-        uid,
+      // Notify the doctor
+      const response = await fetch("http://localhost:3000/api/notify-doctor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          doctorId: id,
+          roomId: `http://localhost:5173/room/${id}`,
+        }),
       });
 
-      const { token } = response.data;
+      if (response.ok) {
+        console.log("Notification sent successfully.");
+      } else {
+        const errorData = await response.json();
+        console.error("Error notifying doctor:", errorData);
+      }
 
-      // Step 2: Initialize Agora Client and Join Channel
-      const client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
-      setRtcClient(client);
-
-      await client.join(process.env.REACT_APP_AGORA_APP_ID, `call_${id}`, token, uid);
-
-      // Publish the local video and audio stream
-      const localTracks = await AgoraRTC.createMicrophoneAndCameraTracks();
-      await client.publish(localTracks);
-
-      alert("Call started! Doctor will be notified via email.");
-      setChannelName(`call_${id}`);
-
-      // Step 3: Notify the Doctor via Email
-      await axios.post("http://localhost:3000/api/notify-doctor", {
-        doctorId: id,
-        channelName: `call_${id}`,
-      });
+      // Navigate to the room
+      navigate(`/room/${id}`);
     } catch (error) {
-      console.error("Failed to start the call:", error);
+      console.error("Error in notifying doctor or navigating:", error);
+    } finally {
+      setLoading(false);
     }
-  };
+  }, [navigate, id]);
 
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4">Doctor Details for: {"Dr. " + id}</h2>
       <span
         className="text-blue-700 text-3xl cursor-pointer"
-        onClick={handleStartCall}
+        onClick={handleJoinRoom}
       >
-        <FaVideo />
+        {loading ? "Starting Call..." : <FaVideo />}
       </span>
     </div>
   );

@@ -9,8 +9,7 @@ import Registration from "../pages/Registration";
 import Signin from "../pages/SignIn";
 import HomePage from "../pages/Home";
 import ConsultationPage from "../pages/consult.jsx";
-import VideoCall from '../components/videoCall.jsx'
-
+import VideoRoom from '../pages/VideoRoom.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,13 +43,11 @@ const router = createBrowserRouter([
             path: "doctordetail/:id",
             element: <DoctorDetails />,
           },
-          {
-            path: "video-call/:roomId",
-            element: <VideoCall />, // Route for VideoCall component
-          },
         ],
       },
+    
      
+   
     ],
   },
   {
@@ -60,6 +57,10 @@ const router = createBrowserRouter([
   {
     path: "/signin",
     element: <Signin />,
+  },
+  {
+    path: "room/:roomId",
+    element: <VideoRoom />, // Route for VideoCall component
   },
 ]);
 
