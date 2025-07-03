@@ -18,6 +18,26 @@
 - **Database**: MongoDB for secure and scalable data storage.
 - **Image Management**: Cloudinary for storing and retrieving user-uploaded images.
 
+## 🚀 Future Goals
+
+We are actively working to enhance the Infant Care Compass platform with features that go beyond basic healthcare tracking. Here's what’s coming next:
+
+- **🎨 UI/UX Enhancements:** Improve responsiveness and visual design across devices to ensure a smoother user experience for both tech-savvy and non-tech-savvy parents.
+  
+- **📹 Integrated Video Conferencing:** Enable secure, real-time video consultations with pediatricians using ZegoCloud or WebRTC integration.
+
+- **🤖 AI-Based First Aid Guidance:** Use OpenAI’s API or LangChain to provide parents with instant, AI-powered suggestions for minor health concerns and everyday parenting questions.
+
+- **📅 Smart Vaccination Notifications:** Enhance the vaccination tracker with personalized reminders based on a child’s age, location, and medical history.
+
+- **📰 Parenting Resource Center:** Add a content hub featuring doctor-written articles, trusted parenting tips, and a community Q&A space.
+
+- **🌐 Multi-language Support:** Make the platform more inclusive by supporting major Indian regional languages for broader accessibility.
+
+- **🔐 Role-Based Access & Security:** Strengthen access control for doctors, parents, and admins to ensure data privacy and secure consultation flow.
+
+- **📈 Analytics Dashboard:** Build a dashboard to track vaccination compliance, user engagement, and doctor consultation trends.
+
 ## Getting Started
 <details>
     <summary><b> Getting Started  </b></summary><br>
