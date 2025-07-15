@@ -1,5 +1,5 @@
 // const backendDomain = "http://localhost:3000";
-const backendDomain = "api.infantcarecompass.live";
+const backendDomain = "https://api.infantcarecompass.live";
 
 
 const commnApiEndpoint = {
