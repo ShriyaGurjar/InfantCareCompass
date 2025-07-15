@@ -15,7 +15,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5173' , "infantcarecompass.live"], // React App URLs
+  origin: ['http://localhost:3000', 'http://localhost:5173' , "https://infantcarecompass.live"], // React App URLs
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
