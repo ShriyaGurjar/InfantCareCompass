@@ -1,0 +1,56 @@
+       
+name: Deploy MERN App to Hostinger VPS
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
+
+      # - name: Create frontend .env file
+      #   run: |
+      #     cat > client/.env <<EOL
+      #     VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}
+      #     VITE_RAZORPAY_KEY_ID=${{ secrets.VITE_RAZORPAY_KEY_ID }}
+      #     VITE_SOCKET_URL=${{ secrets.VITE_SOCKET_URL }}
+      #     EOL
+
+      - name: Build React frontend
+        run: |
+          cd client
+          npm install
+          npm run build
+
+      - name: Deploy frontend to VPS
+        run: |
+           scp -o StrictHostKeyChecking=no -r client/dist/* ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }}:/var/www/InfantCareCompass/client/dist
+
+      - name: Deploy backend and fix permissions
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} << 'EOF'
+            cd /var/www/InfantCareCompass/server
+            git pull origin master
+            npm install
+
+            # Restart backend via PM2
+            pm2 restart InfantCareCompass || pm2 start index.js --name InfantCareCompass
+            pm2 save
+
+            # Fix ownership and permissions (automated)
+            sudo chown -R www-data:www-data /var/www/InfantCareCompass/server
+            sudo chmod -R 755 /var/www/InfantCareCompass/server
+            sudo chown -R www-data:www-data /var/www/InfantCareCompass/client/dist
+            sudo chmod -R 755 /var/www/InfantCareCompass/client/dist
+          EOF

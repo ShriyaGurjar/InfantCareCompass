@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userinfo } from "../store/slices/userSlice";
 import { persistor } from "../store/store.jsx";
 import commnApiEndpoint from '../common/backendAPI.jsx'
-
+import navlogo from '../assets/navlogo.jpg'
 export default function Header() {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user);
@@ -49,7 +49,9 @@ await persistor.purge(); // Clears persisted state from localStorage
           {/* Logo */}
           <div>
             <Link to="/">
-              <h1 className="text-2xl font-bold text-blue-600">MyLogo</h1>
+              <h1 className="text-2xl font-bold text-blue-600">
+                <img src={ navlogo} className="h-11" alt="" />
+              </h1>
             </Link>
           </div>
 
