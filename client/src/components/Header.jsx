@@ -1,89 +1,138 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
-import { useSelector, useDispatch } from "react-redux";
-import { userinfo } from "../store/slices/userSlice";
-import { persistor } from "../store/store.jsx";
-import commnApiEndpoint from '../common/backendAPI.jsx'
-import navlogo from '../assets/navlogo.jpg'
+import React, { useState, useEffect } from "react";
+import { NavLink, Link } from "react-router-dom";
+import {
+  Home, User, BookOpen, Mail, Newspaper, Phone, Menu, X
+} from "lucide-react";
+import navlogo from "../assets/navlogo.jpg";
+
 export default function Header() {
-  const dispatch = useDispatch();
-  const userData = useSelector((state) => state.user);
-console.log('header',userData);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  // Extract `isActive` from the Redux store
-  const isLoggedIn = userData[0]?.isActive || false;
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const  handleSignOut = async () => {
-    try {
-      const response = await fetch(commnApiEndpoint.logout.url,{
-        method:'post',
-        credentials: 'include', 
-      })
-      console.log("response from logoutApi:",response)
-      if(response.ok){
-        // dispatch(userinfo({ isActive: false }));
-        //  // Clear the persisted Redux state
-        // persistor.purge();
-        dispatch({ type: 'RESET_STATE' });
-await persistor.purge(); // Clears persisted state from localStorage
-
-        
-        // console.log("response is ok");
-        
-      }
-    } catch (error) {
-      console.log("error in logout Api:", error)
-    }
-    // Reset user state
-  
-  
-   
-  
-  };
+  const navItems = [
+    { to: "/", label: "Home", icon: <Home className="w-4 h-4" /> },
+    { to: "/about", label: "About", icon: <User className="w-4 h-4" /> },
+    { to: "/blog", label: "Blog", icon: <BookOpen className="w-4 h-4" /> },
+    { to: "/contactus", label: "Contact", icon: <Mail className="w-4 h-4" /> },
+    { to: "/news", label: "News", icon: <Newspaper className="w-4 h-4" /> },
+    { to: "/consultation", label: "Consultation", icon: <Phone className="w-4 h-4" /> },
+  ];
 
   return (
-    <div className="flex flex-col w-full fixed top-0 z-50">
-      <header className="bg-white shadow-md">
-        <div className="container mx-auto flex justify-between items-center py-4 px-4">
+    <div className="w-full fixed top-0 z-50 bg-white/40 backdrop-blur-2xl shadow-sm border-b">
+      <header
+        className={`transition-all duration-300 ${
+          isScrolled ? "shadow-md" : ""
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 flex items-center justify-between min-h-[64px]">
           {/* Logo */}
-          <div>
-            <Link to="/">
-              <h1 className="text-2xl font-bold text-blue-600">
-                <img src={ navlogo} className="h-11" alt="" />
-              </h1>
+          <Link to="/" className="flex items-center gap-2">
+            <img
+              src={navlogo}
+              alt="Logo"
+              className="h-10 w-10 object-contain rounded-full shadow"
+            />
+            <div className="leading-tight">
+              <h1 className="text-lg font-bold text-gray-900">InfantCare</h1>
+              <p className="text-[10px] text-gray-500 -mt-1">Compass</p>
+            </div>
+          </Link>
+
+          {/* Navigation Links - Desktop */}
+          <div className="hidden lg:flex items-center space-x-2">
+            {navItems.map(({ to, label, icon }) => (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) =>
+                  `flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                    isActive
+                      ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow"
+                      : "text-gray-700 hover:bg-gray-100 hover:text-blue-600"
+                  }`
+                }
+              >
+                {icon}
+                {label}
+              </NavLink>
+            ))}
+          </div>
+
+          {/* Auth Buttons */}
+          <div className="hidden lg:flex items-center gap-3">
+            <Link
+              to="/signin"
+              className="border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-4 py-1.5 rounded-md text-sm transition"
+            >
+              Sign In
+            </Link>
+            <Link
+              to="/registration"
+              className="bg-gradient-to-r from-pink-500 to-rose-500 px-5 py-1.5 rounded-full text-white font-medium text-sm hover:scale-105 transition"
+            >
+              Get Started
             </Link>
           </div>
 
-          {/* Sign In / Sign Out */}
-          <div>
-            {isLoggedIn ? (
-              <button
-                onClick={handleSignOut}
-                className="text-red-500 border border-red-500 px-4 py-2 rounded hover:bg-red-500 hover:text-white"
-              >
-                Sign Out
-              </button>
-            ) : (
-              <div className="space-x-4">
-                <Link
-                  to="/signin"
-                  className="text-blue-500 border border-blue-500 px-4 py-2 rounded hover:bg-blue-500 hover:text-white"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  to="/registration"
-                  className="text-green-500 border border-green-500 px-4 py-2 rounded hover:bg-green-500 hover:text-white"
-                >
-                  Register
-                </Link>
-              </div>
-            )}
+          {/* Mobile Menu Toggle */}
+          <div className="lg:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden bg-white border-t border-gray-200 px-4 py-4 space-y-2">
+            {navItems.map(({ to, label, icon }) => (
+              <NavLink
+                key={to}
+                to={to}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={({ isActive }) =>
+                  `flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${
+                    isActive
+                      ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+                      : "text-gray-700 hover:bg-gray-100"
+                  }`
+                }
+              >
+                {icon}
+                {label}
+              </NavLink>
+            ))}
+            <div className="pt-4 border-t border-gray-100 flex flex-col gap-2">
+              <Link
+                to="/signin"
+                className="text-blue-600 border border-blue-600 px-4 py-2 rounded-md text-sm text-center"
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/registration"
+                className="bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 rounded-full text-white text-sm font-semibold text-center"
+              >
+                Get Started
+              </Link>
+            </div>
+          </div>
+        )}
       </header>
-      <Navbar />
     </div>
   );
 }

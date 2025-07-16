@@ -7,6 +7,7 @@ function App() {
   return (
     <div className="w-full ">
       <Header />
+      
       <main className='mt-24'>
         <Outlet /> {/* Outlet renders nested routes */}
       </main>

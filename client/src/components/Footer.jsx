@@ -1,106 +1,203 @@
 import React from "react";
+import { 
+  Mail, 
+  Phone, 
+  MapPin, 
+  Facebook, 
+  Twitter, 
+  Instagram, 
+  Linkedin,
+  Heart,
+  ArrowUp,
+  ExternalLink
+} from "lucide-react";
 
 const Footer = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer className="bg-gray-800 text-gray-300 py-8">
-      <div className="container mx-auto px-4">
+    <footer className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-300 overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,_white_1px,_transparent_0)] bg-[size:20px_20px]"></div>
+      </div>
+      
+      {/* Main Footer Content */}
+      <div className="relative z-10 container mx-auto px-4 py-12">
         {/* Grid Layout for Footer */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          
           {/* Logo and Description */}
-          <div>
-            <h3 className="text-xl font-bold text-white mb-4">MyLogo</h3>
-            <p>
-              Providing exceptional service and care to all our clients. Stay
-              connected with us!
+          <div className="lg:col-span-1">
+            <div className="flex items-center mb-6">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-3">
+                <Heart className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                HealthCare+
+              </h3>
+            </div>
+            <p className="text-gray-400 leading-relaxed mb-6">
+              Providing exceptional healthcare service and care to all our patients. 
+              Your health is our priority, and we're here to help you every step of the way.
             </p>
+            <div className="flex items-center space-x-2 text-sm text-gray-500">
+              <Heart className="w-4 h-4 text-red-500" />
+              <span>Trusted by 10,000+ families</span>
+            </div>
           </div>
-
+          
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-bold text-white mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              <li>
-                <a href="/" className="hover:text-blue-400">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="/about" className="hover:text-blue-400">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="/blog" className="hover:text-blue-400">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="/contact" className="hover:text-blue-400">
-                  Contact Us
-                </a>
-              </li>
+            <h4 className="text-lg font-bold text-white mb-6 relative">
+              Quick Links
+              <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
+            </h4>
+            <ul className="space-y-3">
+              {[
+                { name: "Home", href: "/" },
+                { name: "About Us", href: "/about" },
+                { name: "Services", href: "/services" },
+                { name: "Doctors", href: "/doctors" },
+                { name: "Appointments", href: "/appointments" },
+                { name: "Contact", href: "/contact" }
+              ].map((link, index) => (
+                <li key={index}>
+                  <a 
+                    href={link.href} 
+                    className="group flex items-center text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1"
+                  >
+                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                    {link.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
-
+          
           {/* Contact Information */}
           <div>
-            <h4 className="text-lg font-bold text-white mb-4">Contact Us</h4>
-            <ul className="space-y-2">
-              <li>
-                <span>Email: </span>
-                <a
-                  href="mailto:support@example.com"
-                  className="hover:text-blue-400"
-                >
-                  support@example.com
-                </a>
+            <h4 className="text-lg font-bold text-white mb-6 relative">
+              Contact Info
+              <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
+            </h4>
+            <ul className="space-y-4">
+              <li className="flex items-start group">
+                <div className="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/20 transition-colors">
+                  <Mail className="w-5 h-5 text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-gray-500 text-sm">Email</p>
+                  <a
+                    href="mailto:help@infantcarecompass.live"
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    helpsupport@infantcarecompass.live
+                  </a>
+                </div>
               </li>
-              <li>
-                <span>Phone: </span>
-                <a href="tel:+1234567890" className="hover:text-blue-400">
-                  +1 234 567 890
-                </a>
+              <li className="flex items-start group">
+                <div className="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center mr-3 group-hover:bg-green-500/20 transition-colors">
+                  <Phone className="w-5 h-5 text-green-400" />
+                </div>
+                <div>
+                  <p className="text-gray-500 text-sm">Phone</p>
+                  <a
+                    href="tel:+919956****"
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    +91 919956****
+                  </a>
+                </div>
               </li>
-              <li>
-                <span>Address: </span>123 Main Street, City, Country
+              <li className="flex items-start group">
+                <div className="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center mr-3 group-hover:bg-purple-500/20 transition-colors">
+                  <MapPin className="w-5 h-5 text-purple-400" />
+                </div>
+                <div>
+                  <p className="text-gray-500 text-sm">Address</p>
+                  <p className="text-gray-300">123 Healthcare Ave, Medical City, MC 12345</p>
+                </div>
               </li>
             </ul>
           </div>
-
-          {/* Social Media Links */}
+          
+          {/* Newsletter & Social */}
           <div>
-            <h4 className="text-lg font-bold text-white mb-4">Follow Us</h4>
-            <div className="flex space-x-4">
-              <a
-                href="#"
-                className="hover:text-blue-400"
-                aria-label="Facebook"
-              >
-                <i className="fab fa-facebook-f"></i> Facebook
-              </a>
-              <a
-                href="#"
-                className="hover:text-blue-400"
-                aria-label="Twitter"
-              >
-                <i className="fab fa-twitter"></i> Twitter
-              </a>
-              <a
-                href="#"
-                className="hover:text-blue-400"
-                aria-label="Instagram"
-              >
-                <i className="fab fa-instagram"></i> Instagram
-              </a>
+            <h4 className="text-lg font-bold text-white mb-6 relative">
+              Stay Connected
+              <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
+            </h4>
+            
+            {/* Newsletter Signup */}
+            <div className="mb-6">
+              <p className="text-gray-400 text-sm mb-4">
+                Subscribe to our newsletter for health tips and updates
+              </p>
+              <div className="flex">
+                <input
+                  type="email"
+                  placeholder="Your email"
+                  className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:outline-none focus:border-blue-500 transition-colors text-white placeholder-gray-500"
+                />
+                <button className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-r-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 text-white">
+                  <ExternalLink className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+            
+            {/* Social Media Links */}
+            <div>
+              <p className="text-gray-400 text-sm mb-4">Follow us on social media</p>
+              <div className="flex space-x-3">
+                {[
+                  { Icon: Facebook, href: "#", color: "hover:text-blue-500" },
+                  { Icon: Twitter, href: "#", color: "hover:text-blue-400" },
+                  { Icon: Instagram, href: "#", color: "hover:text-pink-500" },
+                  { Icon: Linkedin, href: "#", color: "hover:text-blue-600" }
+                ].map(({ Icon, href, color }, index) => (
+                  <a
+                    key={index}
+                    href={href}
+                    className={`w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 ${color} hover:scale-110 transition-all duration-300 hover:bg-gray-700`}
+                  >
+                    <Icon className="w-5 h-5" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-
+        
         {/* Footer Bottom */}
-        <div className="mt-8 border-t border-gray-600 pt-4 text-center">
-          <p>&copy; 2024 MyLogo. All rights reserved.</p>
+        <div className="mt-12 pt-8 border-t border-gray-700/50">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div className="flex items-center space-x-6 text-sm text-gray-500">
+              <p>&copy; 2024 HealthCare+. All rights reserved.</p>
+              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+              <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
+            </div>
+            
+            {/* Back to Top Button */}
+            <button
+              onClick={scrollToTop}
+              className="group flex items-center space-x-2 text-sm text-gray-400 hover:text-white transition-all duration-300 hover:translate-y-[-2px]"
+            >
+              <span>Back to top</span>
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center group-hover:shadow-lg transition-all duration-300">
+                <ArrowUp className="w-4 h-4 text-white" />
+              </div>
+            </button>
+          </div>
         </div>
       </div>
+      
+      {/* Decorative Elements */}
+      <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-r from-blue-500/10 to-purple-600/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl"></div>
     </footer>
   );
 };
