@@ -129,6 +129,7 @@ Submit a pull request detailing your changes.
 </details>
 
 # Contributors
+
 Thanks to these amazing people for helping build InfantCareCompass!
 
 <a href="https://github.com/Amarjha01/InfantCareCompass/graphs/contributors"> <img src="https://contrib.rocks/image?repo=Amarjha01/InfantCareCompass" /> </a>
