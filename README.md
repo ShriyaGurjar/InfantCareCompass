@@ -124,7 +124,8 @@ Submit a pull request detailing your changes.
 <details>	
  <summary><b> View </b></summary><br>
 <div style='display:flex; align-items:center; gap: 10px;' align='center'>
-    <img width="2529" height="6903" alt="infantcarecompass live_" src="https://github.com/user-attachments/assets/18eac448-75e0-4024-a092-ae52681cfc50" />
+    <img width="1920" height="6586" alt="screencapture-infantcarecompass-live-2025-07-20-10_31_44" src="https://github.com/user-attachments/assets/17311aa0-dc98-426e-9f7c-1bd0b7eec9a5" />
+
 </div>
 </details>
 
