@@ -94,7 +94,7 @@ const Footer = () => {
                     href="mailto:help@infantcarecompass.live"
                     className="text-gray-300 hover:text-white transition-colors"
                   >
-                    helpsupport@infantcarecompass.live
+                    help@infantcarecompass.live
                   </a>
                 </div>
               </li>
