@@ -124,6 +124,11 @@ Submit a pull request detailing your changes.
 <details>	
  <summary><b> View </b></summary><br>
 <div style='display:flex; align-items:center; gap: 10px;' align='center'>
-    <img src="" alt="" />
+    <img width="2529" height="6903" alt="infantcarecompass live_" src="https://github.com/user-attachments/assets/18eac448-75e0-4024-a092-ae52681cfc50" />
 </div>
 </details>
+
+# Contributors
+Thanks to these amazing people for helping build InfantCareCompass!
+
+<a href="https://github.com/Amarjha01/InfantCareCompass/graphs/contributors"> <img src="https://contrib.rocks/image?repo=Amarjha01/InfantCareCompass" /> </a>
