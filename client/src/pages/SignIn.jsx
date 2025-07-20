@@ -1,6 +1,96 @@
 import React, { useState } from "react";
 import { Mail, Lock, User, Eye, EyeOff, Shield, Stethoscope, Baby, ArrowRight, AlertCircle } from "lucide-react";
 
+// --- Solution: Moved InputField outside and simplified it ---
+const InputField = ({
+  icon: Icon,
+  name,
+  type,
+  placeholder,
+  value,
+  error,
+  isFocused,
+  showPassword,
+  onToggleShowPassword,
+  onChange,
+  onFocus,
+  onBlur,
+}) => {
+  return (
+    <div className="relative">
+      <Icon className={`absolute left-4 top-4 w-5 h-5 transition-colors duration-300 ${isFocused ? 'text-indigo-600' : error ? 'text-red-500' : 'text-gray-400'
+        }`} />
+
+      <input
+        name={name}
+        type={type}
+        value={value}
+        onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        placeholder={placeholder}
+        className={`w-full pl-12 pr-12 py-4 border-2 rounded-xl transition-all duration-300 bg-white ${ // Solid background
+          error
+            ? 'border-red-300 focus:border-red-500 focus:ring-red-500/20'
+            : isFocused
+              ? 'border-indigo-500 focus:border-indigo-600 focus:ring-indigo-500/20 shadow-lg'
+              : 'border-gray-200 hover:border-gray-300'
+          } focus:outline-none focus:ring-4`}
+      />
+
+      {name === 'password' && (
+        <button
+          type="button"
+          onClick={onToggleShowPassword}
+          className="absolute right-4 top-4 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+        >
+          {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+        </button>
+      )}
+
+      {error && (
+        <p className="mt-2 text-sm text-red-600 flex items-center animate-slideIn">
+          <AlertCircle className="w-4 h-4 mr-1" />
+          {error}
+        </p>
+      )}
+    </div>
+  );
+};
+
+// --- Solution: Moved RoleCard outside ---
+const RoleCard = ({ value, icon: Icon, title, description, isSelected, onClick }) => (
+  <div
+    onClick={onClick}
+    className={`relative p-6 rounded-xl cursor-pointer transition-all duration-300 transform hover:scale-105 ${isSelected
+        ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg'
+        : 'bg-white border-2 border-gray-200 hover:border-indigo-300 hover:shadow-md' // Solid background
+      }`}
+  >
+    <div className="flex items-center mb-3">
+      <div className={`p-3 rounded-full ${isSelected ? 'bg-white/20' : 'bg-gradient-to-r from-indigo-500 to-purple-500'
+        }`}>
+        <Icon className={"w-6 h-6 text-white"} />
+      </div>
+      <h3 className={`ml-3 font-semibold ${isSelected ? 'text-white' : 'text-gray-800'}`}>
+        {title}
+      </h3>
+    </div>
+    <p className={`text-sm ${isSelected ? 'text-white/90' : 'text-gray-600'}`}>
+      {description}
+    </p>
+
+    {isSelected && (
+      <div className="absolute top-3 right-3">
+        <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+          <div className="w-3 h-3 bg-indigo-500 rounded-full"></div>
+        </div>
+      </div>
+    )}
+  </div>
+);
+
+
 export default function Signin() {
   const [formData, setFormData] = useState({
     email: '',
@@ -14,43 +104,35 @@ export default function Signin() {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
       newErrors.email = "Enter a valid email address";
     }
-    
+
     if (!formData.password.trim()) {
       newErrors.password = "Password is required";
     } else if (formData.password.length < 6) {
       newErrors.password = "Password must be at least 6 characters long";
     }
-    
+
     if (!formData.role) {
       newErrors.role = "Role is required";
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     if (!validateForm()) return;
-    
     setIsSubmitting(true);
-    
     try {
-      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
       console.log("Submitted Data: ", formData);
-      
-      // Simulate successful login
       alert("Login successful!");
-      
     } catch (error) {
       console.error("Signin error:", error);
       alert("Invalid email or password. Please try again.");
@@ -62,114 +144,14 @@ export default function Signin() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
 
-  const InputField = ({ icon: Icon, label, name, type = "text", placeholder }) => {
-    const hasError = errors[name];
-    const isFocused = focusedField === name;
-    const hasValue = formData[name];
-
-    return (
-      <div className="relative group">
-        <label className={`absolute left-12 transition-all duration-300 pointer-events-none ${
-          isFocused || hasValue 
-            ? 'text-xs text-indigo-600 -top-2 bg-white px-2 font-medium' 
-            : 'text-gray-500 top-4'
-        }`}>
-          {label}
-        </label>
-        
-        <div className="relative">
-          <Icon className={`absolute left-4 top-4 w-5 h-5 transition-colors duration-300 ${
-            isFocused ? 'text-indigo-600' : hasError ? 'text-red-500' : 'text-gray-400'
-          }`} />
-          
-          <input
-            name={name}
-            type={type}
-            value={formData[name]}
-            onChange={handleChange}
-            onFocus={() => setFocusedField(name)}
-            onBlur={() => setFocusedField(null)}
-            placeholder={isFocused || hasValue ? placeholder : ''}
-            className={`w-full pl-12 pr-12 py-4 border-2 rounded-xl transition-all duration-300 bg-white/50 backdrop-blur-sm ${
-              hasError 
-                ? 'border-red-300 focus:border-red-500 focus:ring-red-500/20' 
-                : isFocused 
-                  ? 'border-indigo-500 focus:border-indigo-600 focus:ring-indigo-500/20 shadow-lg' 
-                  : 'border-gray-200 hover:border-gray-300'
-            } focus:outline-none focus:ring-4`}
-          />
-          
-          {name === 'password' && (
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-4 p-1 text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-            </button>
-          )}
-          
-          {hasError && (
-            <div className="absolute right-4 top-4 flex items-center">
-              <AlertCircle className="w-5 h-5 text-red-500" />
-            </div>
-          )}
-        </div>
-        
-        {hasError && (
-          <p className="mt-2 text-sm text-red-600 flex items-center animate-slideIn">
-            <AlertCircle className="w-4 h-4 mr-1" />
-            {hasError}
-          </p>
-        )}
-      </div>
-    );
-  };
-
-  const RoleCard = ({ value, icon: Icon, title, description, isSelected, onClick }) => (
-    <div
-      onClick={onClick}
-      className={`relative p-6 rounded-xl cursor-pointer transition-all duration-300 transform hover:scale-105 ${
-        isSelected 
-          ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg' 
-          : 'bg-white/80 backdrop-blur-sm border-2 border-gray-200 hover:border-indigo-300 hover:shadow-md'
-      }`}
-    >
-      <div className="flex items-center mb-3">
-        <div className={`p-3 rounded-full ${
-          isSelected ? 'bg-white/20' : 'bg-gradient-to-r from-indigo-500 to-purple-500'
-        }`}>
-          <Icon className={`w-6 h-6 ${isSelected ? 'text-white' : 'text-white'}`} />
-        </div>
-        <h3 className={`ml-3 font-semibold ${isSelected ? 'text-white' : 'text-gray-800'}`}>
-          {title}
-        </h3>
-      </div>
-      <p className={`text-sm ${isSelected ? 'text-white/90' : 'text-gray-600'}`}>
-        {description}
-      </p>
-      
-      {isSelected && (
-        <div className="absolute top-3 right-3">
-          <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
-            <div className="w-3 h-3 bg-indigo-500 rounded-full"></div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center py-12 px-4">
       <div className="w-full max-w-md">
-        {/* Header */}
         <div className="text-center mb-8 animate-fadeIn">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full mb-6 shadow-lg">
             <Shield className="w-8 h-8 text-white" />
@@ -182,31 +164,41 @@ export default function Signin() {
           </p>
         </div>
 
-        {/* Form */}
-        <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-xl p-8 animate-slideUp">
+        <div className="bg-white rounded-3xl shadow-xl p-8 animate-slideUp"> {/* Solid background */}
           <div className="space-y-6">
             <InputField
               icon={Mail}
-              label="Email Address"
               name="email"
               type="email"
-              placeholder="Enter your email"
-            />
-            
-            <InputField
-              icon={Lock}
-              label="Password"
-              name="password"
-              type={showPassword ? "text" : "password"}
-              placeholder="Enter your password"
+              placeholder="Email Address"
+              value={formData.email}
+              error={errors.email}
+              isFocused={focusedField === 'email'}
+              onChange={handleChange}
+              onFocus={() => setFocusedField('email')}
+              onBlur={() => setFocusedField(null)}
             />
 
-            {/* Role Selection */}
+            <InputField
+              icon={Lock}
+              name="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={formData.password}
+              error={errors.password}
+              isFocused={focusedField === 'password'}
+              showPassword={showPassword}
+              onToggleShowPassword={() => setShowPassword(!showPassword)}
+              onChange={handleChange}
+              onFocus={() => setFocusedField('password')}
+              onBlur={() => setFocusedField(null)}
+            />
+
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700 mb-3">
                 Select Your Role
               </label>
-              
+
               <div className="grid grid-cols-1 gap-3">
                 <RoleCard
                   value="PARENTS"
@@ -216,7 +208,7 @@ export default function Signin() {
                   isSelected={formData.role === 'PARENTS'}
                   onClick={() => setFormData(prev => ({ ...prev, role: 'PARENTS' }))}
                 />
-                
+
                 <RoleCard
                   value="DOCTOR"
                   icon={Stethoscope}
@@ -228,15 +220,13 @@ export default function Signin() {
               </div>
             </div>
 
-            {/* Submit Button */}
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className={`w-full py-4 px-6 rounded-xl font-semibold text-white transition-all duration-300 transform ${
-                isSubmitting 
-                  ? 'bg-gray-400 cursor-not-allowed' 
+              className={`w-full py-4 px-6 rounded-xl font-semibold text-white transition-all duration-300 transform ${isSubmitting
+                  ? 'bg-gray-400 cursor-not-allowed'
                   : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 hover:scale-105 hover:shadow-xl active:scale-95'
-              } focus:outline-none focus:ring-4 focus:ring-indigo-500/50`}
+                } focus:outline-none focus:ring-4 focus:ring-indigo-500/50`}
             >
               <div className="flex items-center justify-center space-x-2">
                 {isSubmitting ? (
@@ -255,12 +245,11 @@ export default function Signin() {
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="text-center mt-8 animate-fadeIn" style={{animationDelay: '0.4s'}}>
+        <div className="text-center mt-8 animate-fadeIn" style={{ animationDelay: '0.4s' }}>
           <p className="text-gray-600">
             Don't have an account?{' '}
-            <a 
-              href="/registration" 
+            <a
+              href="/registration"
               className="text-indigo-600 hover:text-indigo-800 font-medium transition-colors duration-300"
             >
               Register here
@@ -268,9 +257,8 @@ export default function Signin() {
           </p>
         </div>
 
-        {/* Decorative Elements */}
         <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full opacity-20 animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-32 h-32 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 animate-float" style={{animationDelay: '2s'}}></div>
+        <div className="absolute bottom-20 right-10 w-32 h-32 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 animate-float" style={{ animationDelay: '2s' }}></div>
       </div>
 
       <style jsx>{`
