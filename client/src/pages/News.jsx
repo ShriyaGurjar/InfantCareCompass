@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Calendar, Clock, ArrowRight, Heart, Share2, BookOpen, Sparkles } from 'lucide-react';
 
 const newsData = [
@@ -6,8 +7,8 @@ const newsData = [
     id: 1,
     title: "New Guidelines for Infant Care",
     description: "Learn about the latest recommendations for taking care of your child, from nutrition to daily routines.",
-    image: "https://via.placeholder.com/400x200",
-    link: "/news/1",
+    image: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=200&q=80",
+    link: "/articles/infant-care-guidelines",
     category: "Health",
     date: "2 days ago",
     readTime: "5 min read",
@@ -18,8 +19,8 @@ const newsData = [
     id: 2,
     title: "The Benefits of Vaccination",
     description: "Explore how vaccinations can protect your child and ensure a healthy future.",
-    image: "https://via.placeholder.com/400x200",
-    link: "/news/2",
+    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=200&q=80",
+    link: "/articles/vaccination-benefits",
     category: "Prevention",
     date: "4 days ago",
     readTime: "7 min read",
@@ -30,8 +31,8 @@ const newsData = [
     id: 3,
     title: "Top Childcare Tips for 2024",
     description: "A comprehensive guide to the best childcare practices recommended by experts this year.",
-    image: "https://via.placeholder.com/400x200",
-    link: "/news/3",
+    image: "https://images.unsplash.com/photo-1541557435984-1c79685a082b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=200&q=80",
+    link: "/articles/childcare-tips-2024",
     category: "Tips",
     date: "1 week ago",
     readTime: "12 min read",
@@ -42,8 +43,8 @@ const newsData = [
     id: 4,
     title: "AI in First Aid for Kids",
     description: "Discover how artificial intelligence is transforming first aid practices for children.",
-    image: "https://via.placeholder.com/400x200",
-    link: "/news/4",
+    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=200&q=80",
+    link: "/articles/ai-first-aid-kids",
     category: "Technology",
     date: "2 weeks ago",
     readTime: "8 min read",
@@ -62,6 +63,7 @@ const categoryColors = {
 const News = () => {
   const [likedArticles, setLikedArticles] = useState(new Set());
   const [hoveredCard, setHoveredCard] = useState(null);
+  const navigate = useNavigate();
 
   const toggleLike = (articleId) => {
     setLikedArticles(prev => {
@@ -75,15 +77,37 @@ const News = () => {
     });
   };
 
+  const handleReadMore = (link) => {
+    try {
+      // Check if the route exists before navigating
+      if (isValidRoute(link)) {
+        navigate(link);
+      } else {
+        // Fallback to a generic article page with the article ID
+        const articleId = link.split('/').pop();
+        navigate(`/article/${articleId}`, { state: { notFound: true } });
+      }
+    } catch (error) {
+      console.error("Navigation error:", error);
+      navigate('/error', { state: { error: error.message } });
+    }
+  };
+
+  // This would be replaced with your actual route validation logic
+  const isValidRoute = (path) => {
+    // In a real app, you might check against your route configuration
+    return newsData.some(article => article.link === path);
+  };
+
   const NewsCard = ({ news, index }) => {
     const isLiked = likedArticles.has(news.id);
     const isHovered = hoveredCard === news.id;
+    const [imageError, setImageError] = useState(false);
 
     return (
       <div
-        className={`group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 ${
-          news.featured ? 'ring-2 ring-gradient-to-r from-indigo-500 to-purple-500' : ''
-        }`}
+        className={`group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 ${news.featured ? 'ring-2 ring-gradient-to-r from-indigo-500 to-purple-500' : ''
+          }`}
         style={{
           animationDelay: `${index * 0.1}s`,
         }}
@@ -100,30 +124,42 @@ const News = () => {
 
         {/* Image Container */}
         <div className="relative h-48 overflow-hidden">
-          <img 
-            src={news.image} 
-            alt={news.title} 
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-          
+          {imageError ? (
+            <div className="w-full h-full bg-gradient-to-br from-indigo-50 to-purple-50 flex items-center justify-center">
+              <BookOpen className="w-12 h-12 text-indigo-300" />
+            </div>
+          ) : (
+            <img
+              src={news.image}
+              alt={news.title}
+              onError={() => setImageError(true)}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              loading="lazy"
+            />
+          )}
+
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          
+
           {/* Floating Action Buttons */}
-          <div className={`absolute top-4 right-4 flex space-x-2 transition-all duration-300 ${
-            isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-          }`}>
+          <div className={`absolute top-4 right-4 flex space-x-2 transition-all duration-300 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+            }`}>
             <button
-              onClick={() => toggleLike(news.id)}
-              className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
-                isLiked 
-                  ? 'bg-red-500 text-white shadow-lg' 
-                  : 'bg-white/80 text-gray-700 hover:bg-white'
-              }`}
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleLike(news.id);
+              }}
+              className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${isLiked
+                ? 'bg-red-500 text-white shadow-lg'
+                : 'bg-white/80 text-gray-700 hover:bg-white'
+                }`}
             >
               <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
             </button>
-            <button className="p-2 rounded-full bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white transition-all duration-300">
+            <button
+              onClick={(e) => e.stopPropagation()}
+              className="p-2 rounded-full bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white transition-all duration-300"
+            >
               <Share2 className="w-4 h-4" />
             </button>
           </div>
@@ -158,8 +194,11 @@ const News = () => {
               <Clock className="w-4 h-4 mr-1" />
               {news.readTime}
             </div>
-            
-            <button className="flex items-center text-indigo-600 hover:text-indigo-800 font-medium transition-colors duration-300 group/btn">
+
+            <button
+              onClick={() => handleReadMore(news.link)}
+              className="flex items-center text-indigo-600 hover:text-indigo-800 font-medium transition-colors duration-300 group/btn"
+            >
               <span className="mr-2">Read More</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
             </button>
@@ -187,19 +226,19 @@ const News = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full mb-6 shadow-lg animate-pulse">
             <BookOpen className="w-8 h-8 text-white" />
           </div>
-          
+
           <h1 className="text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-6 animate-fadeIn">
             Latest News & Updates
           </h1>
-          
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto animate-fadeIn" style={{animationDelay: '0.2s'}}>
+
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto animate-fadeIn" style={{ animationDelay: '0.2s' }}>
             Stay informed with the latest developments in childcare, health, and technology
           </p>
         </div>
 
         {/* Decorative Elements */}
         <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full opacity-20 animate-float"></div>
-        <div className="absolute bottom-10 right-10 w-32 h-32 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 animate-float" style={{animationDelay: '2s'}}></div>
+        <div className="absolute bottom-10 right-10 w-32 h-32 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 animate-float" style={{ animationDelay: '2s' }}></div>
       </div>
 
       {/* News Grid */}
