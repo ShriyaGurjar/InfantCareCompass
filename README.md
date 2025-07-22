@@ -133,20 +133,31 @@ Submit a pull request detailing your changes.
 
 # Contributors
 
-Thanks to these amazing people for helping build InfantCareCompass!
 
-<h3 align="center">Thank you for contributing to our repository</h3>
+
+<h3 align="center">🙏 Thanks to These Amazing People for Helping Build <strong>InfantCareCompass</strong>!</h3>
 
 <p align="center">
+  <!-- Vaunt.dev (auto-updating SVG contributors graph) -->
   <a href="https://github.com/Amarjha01/InfantCareCompass/graphs/contributors">
-    <img src="https://api.vaunt.dev/v1/github/entities/Amarjha01/repositories/InfantCareCompass/contributors?format=svg&limit=54" width="700" height="250" />
+    <img 
+      src="https://api.vaunt.dev/v1/github/entities/Amarjha01/repositories/InfantCareCompass/contributors?format=svg&limit=54" 
+      width="700" 
+      height="250" 
+      alt="Contributors Graph by Vaunt.dev" 
+    />
   </a>
 </p>
 
 <p align="center">
+  <!-- Contrib.rocks (profile avatars grid) -->
   <a href="https://github.com/Amarjha01/InfantCareCompass/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=Amarjha01/InfantCareCompass&max=300" />
+    <img 
+      src="https://contrib.rocks/image?repo=Amarjha01/InfantCareCompass&max=300" 
+      alt="GitHub Contributors Avatars" 
+    />
   </a>
 </p>
 
+<h3 align="center">🔄 Auto-Updating with New Contributors!</h3>
 
