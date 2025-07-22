@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Mail, Lock, User, Eye, EyeOff, Shield, Stethoscope, Baby, ArrowRight, AlertCircle } from "lucide-react";
 
 // --- Solution: Moved InputField outside and simplified it ---
@@ -101,6 +102,7 @@ export default function Signin() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
+  const navigate = useNavigate();
 
   const validateForm = () => {
     const newErrors = {};
@@ -125,6 +127,10 @@ export default function Signin() {
     return Object.keys(newErrors).length === 0;
   };
 
+  const navigateChange = () => {
+    navigate("/");
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -133,6 +139,7 @@ export default function Signin() {
       await new Promise(resolve => setTimeout(resolve, 2000));
       console.log("Submitted Data: ", formData);
       alert("Login successful!");
+      navigateChange();
     } catch (error) {
       console.error("Signin error:", error);
       alert("Invalid email or password. Please try again.");
