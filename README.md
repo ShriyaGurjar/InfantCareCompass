@@ -135,4 +135,18 @@ Submit a pull request detailing your changes.
 
 Thanks to these amazing people for helping build InfantCareCompass!
 
-<a href="https://github.com/Amarjha01/InfantCareCompass/graphs/contributors"> <img src="https://contrib.rocks/image?repo=Amarjha01/InfantCareCompass" /> </a>
+<h3 align="center">Thank you for contributing to our repository</h3>
+
+<p align="center">
+  <a href="https://github.com/Amarjha01/InfantCareCompass/graphs/contributors">
+    <img src="https://api.vaunt.dev/v1/github/entities/Amarjha01/repositories/InfantCareCompass/contributors?format=svg&limit=54" width="700" height="250" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Amarjha01/InfantCareCompass/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=Amarjha01/InfantCareCompass&max=300" />
+  </a>
+</p>
+
+
