@@ -1,4 +1,4 @@
-name: Auto Comment on Issues
+name: Auto Comment, Assign & Label on Issues
 
 on:
   issues:
@@ -9,7 +9,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  comment:
+  comment-assign-label:
     runs-on: ubuntu-latest
     steps:
       - name: Comment on Issue
@@ -19,9 +19,33 @@ jobs:
           body: |
             👋 Thanks for opening this issue!
 
-            Before you start:
-            - Make sure to **star the repo**
-            - Pull the latest changes
-            - Include screenshots in your PR
+            Before you start, here are a few things to help you get started quickly:
 
-            Happy contributing! 🚀
+            ### 📹 Getting Started Video Guides:
+
+            - 🔁 [How to Clone the Repo](available soon)
+            - 🧰 [How to Set Up the Project Locally](https://youtu.be/yG0IZepwsko)
+            - 📥 [How to Raise a Pull Request](available soon)
+
+            ### ✅ Checklist:
+            - [ ] Star the repo ⭐
+            - [ ] Pull the latest changes 🔄
+            - [ ] Include screenshots or video demos in your PR 📸
+
+            > Happy contributing! 🚀  
+            > Feel free to ask questions in the discussion or comment section.
+
+      - name: Add Labels
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: |
+            gssoc
+            good first issue
+            needs review
+
+      - name: Assign User
+        uses: actions-ecosystem/action-add-assignees@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          assignees: ${{ github.event.issue.user.login }}
