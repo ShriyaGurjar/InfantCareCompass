@@ -1,0 +1,23 @@
+name: Comment on New Issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment on issue
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            👋 Thanks for opening this issue!
+
+            Before you start:
+            - Make sure to **star the repo**
+            - Pull the latest changes
+            - Include screenshots in your PR
+
+            Happy contributing! 🚀
