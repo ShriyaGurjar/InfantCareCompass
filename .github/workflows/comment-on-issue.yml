@@ -32,17 +32,17 @@ jobs:
             - [ ] Pull the latest changes 🔄
             - [ ] Include screenshots or video demos in your PR 📸
 
-            > Happy contributing! 🚀  
-            > Feel free to ask questions in the discussion or comment section.
-
+            > 🛠 **Happy Contributing!** 🚀  
+            > 💬 Feel free to ask questions in the [Discussions](../../discussions) or comment section.  
+            > 👨‍💻 Your PA: [@amarjha01](https://github.com/amarjha01) &nbsp;&nbsp;|&nbsp;&nbsp; 👨‍🏫 Mentor: [@CHHemant](https://github.com/CHHemant)
+            📣 Join our Discord Community: [Click to Join](https://discord.gg/vg5ZuD9B)
       - name: Add Labels
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           labels: |
-            gssoc
-            good first issue
-            needs review
+            GSSoC'25
+            enhancement
 
       - name: Assign User
         uses: actions-ecosystem/action-add-assignees@v1
