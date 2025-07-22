@@ -1,4 +1,4 @@
-import React from "react";
+import "react";
 import { 
   Mail, 
   Phone, 
@@ -41,7 +41,7 @@ const Footer = () => {
             </div>
             <p className="text-gray-100 leading-relaxed mb-6">
               Providing exceptional healthcare service and care to all our patients. 
-              Your health is our priority, and we're here to help you every step of the way.
+              Your health is our priority, and We are here to help you every step of the way.
             </p>
             <div className="flex items-center space-x-2 text-sm text-gray-100">
               <Heart className="w-4 h-4 text-red-400" />
@@ -153,11 +153,11 @@ const Footer = () => {
               <p className="text-gray-100 text-sm mb-4">Follow us on social media</p>
               <div className="flex space-x-3">
                 {[
-                  { Icon: Facebook, href: "#", color: "hover:text-blue-500" },
-                  { Icon: Twitter, href: "#", color: "hover:text-blue-400" },
-                  { Icon: Instagram, href: "#", color: "hover:text-pink-500" },
-                  { Icon: Linkedin, href: "#", color: "hover:text-blue-600" }
-                ].map(({ Icon, href, color }, index) => (
+                  { Icon: Facebook, href: "#" },
+                  { Icon: Twitter, href: "#" },
+                  { Icon: Instagram, href: "#" },
+                  { Icon: Linkedin, href: "#" }
+                ].map(({ Icon, href }, index) => (
                   <a
                     key={index}
                     href={href}
