@@ -18,7 +18,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-gray-300 overflow-hidden">
+    <footer className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-300 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,_white_1px,_transparent_0)] bg-[size:20px_20px]"></div>
@@ -174,11 +174,11 @@ const Footer = () => {
         {/* Footer Bottom */}
         <div className="mt-12 pt-8 border-t border-gray-700/50">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="flex items-center space-x-6 text-sm text-white font-semibold">
+            <div className="flex items-center space-x-6 text-sm text-gray-500">
               <p>&copy; 2024 HealthCare+. All rights reserved.</p>
-              <a href="#" className="hover:text-purple-300 transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-purple-300 transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-purple-300 transition-colors">Cookie Policy</a>
+              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+              <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
             </div>
             
             {/* Back to Top Button */}
