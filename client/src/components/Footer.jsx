@@ -43,15 +43,15 @@ const Footer = () => {
               Providing exceptional healthcare service and care to all our patients. 
               Your health is our priority, and We are here to help you every step of the way.
             </p>
-            <div className="flex items-center space-x-2 text-sm text-gray-100">
+            <div className="flex items-center space-x-2 text-sm">
               <Heart className="w-4 h-4 text-red-400" />
-              <span>Trusted by 10,000+ families</span>
+              <span className="font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Trusted by 10,000+ families</span>
             </div>
           </div>
           
           {/* Quick Links */}
           <div>
-            <h4 className="text-xl font-bold text-white mb-6 relative">
+            <h4 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-6 relative">
               Quick Links
               <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
             </h4>
@@ -79,7 +79,7 @@ const Footer = () => {
           
           {/* Contact Information */}
           <div>
-            <h4 className="text-xl font-bold text-white mb-6 relative">
+            <h4 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-6 relative">
               Contact Info
               <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
             </h4>
@@ -126,7 +126,7 @@ const Footer = () => {
           
           {/* Newsletter & Social */}
           <div>
-            <h4 className="text-xl font-bold text-white mb-6 relative">
+            <h4 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-6 relative">
               Stay Connected
               <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
             </h4>
@@ -174,7 +174,7 @@ const Footer = () => {
         {/* Footer Bottom */}
         <div className="mt-12 pt-8 border-t border-gray-700/50">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="flex items-center space-x-6 text-sm text-gray-500">
+            <div className="flex items-center space-x-6 text-sm font-semibold text-white">
               <p>&copy; 2024 HealthCare+. All rights reserved.</p>
               <a href="#" className="hover:text-purple-200 transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-purple-200 transition-colors">Terms of Service</a>
@@ -187,7 +187,7 @@ const Footer = () => {
               className="group flex items-center space-x-2 text-sm text-white hover:text-purple-200 transition-all duration-300 hover:translate-y-[-2px]"
             >
               <span>Back to top</span>
-              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-purple-400 rounded-full flex items-center justify-center group-hover:shadow-lg transition-all duration-300">
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center group-hover:shadow-lg transition-all duration-300">
                 <ArrowUp className="w-4 h-4 text-white" />
               </div>
             </button>
