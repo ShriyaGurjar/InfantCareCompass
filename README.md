@@ -161,3 +161,8 @@ Submit a pull request detailing your changes.
 
 <h3 align="center">🔄 Auto-Updating with New Contributors!</h3>
 
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).  
+You’re free to use, modify, and share this software under the license terms.
