@@ -3,7 +3,8 @@ import { NavLink, Link } from "react-router-dom";
 import {
   Home, User, BookOpen, Mail, Newspaper, Phone, Menu, X
 } from "lucide-react";
-import navlogo from "../assets/navlogo.jpg";
+// import navlogo from "../assets/navlogo.jpg";
+import navlogo from "/logo.png";
 import { motion } from "motion/react";
 
 export default function Header() {
@@ -38,7 +39,7 @@ export default function Header() {
             <img
               src={navlogo}
               alt="Logo"
-              className="h-10 w-10 object-contain rounded-full shadow"
+              className="h-12 w-12 object-contain rounded-full shadow"
             />
             <div className="leading-tight">
               <h1 className="text-lg font-bold text-gray-900">InfantCare</h1>
