@@ -6,6 +6,7 @@ import cors from 'cors';
 // import doctormodel from './models/user/doctorSchema.js'; 
 import dbConnect from './config/database/DBconnect.js'; // Replace with actual DB connect
 import router from './routes/routes.js'; // Routes if needed
+import githubWebhook from './routes/githubWebhook.js';
 
 
 const PORT = process.env.PORT || 5000;
@@ -26,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api', router);
 
-
+app.use('/api/github', githubWebhook)
 
 // Email Notification to Doctor
 // app.post('/api/notify-doctor', async (req, res) => {
