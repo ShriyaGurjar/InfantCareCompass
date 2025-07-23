@@ -20,8 +20,8 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
 const HomePage = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState({});
+
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -30,6 +30,7 @@ const HomePage = () => {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
 
   const handleIntersection = (entries) => {
     entries.forEach((entry) => {
@@ -168,6 +169,7 @@ const HomePage = () => {
         ></div>
       </div>
 
+
       {/* Mouse Follower Effect */}
       <div
         className="fixed w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full pointer-events-none z-50 opacity-60 blur-sm transition-all duration-100"
@@ -177,6 +179,8 @@ const HomePage = () => {
           transform: "translate3d(0, 0, 0)",
         }}
       ></div>
+
+
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-6">
