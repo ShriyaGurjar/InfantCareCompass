@@ -4,6 +4,7 @@ import {
   Home, User, BookOpen, Mail, Newspaper, Phone, Menu, X
 } from "lucide-react";
 import navlogo from "../assets/navlogo.jpg";
+import { motion } from "motion/react";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -98,7 +99,11 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-gray-200 px-4 py-4 space-y-2">
+          <motion.div
+          initial={{opacity:0, y:-1}}
+          animate={{opacity:1, y:0}}
+          transition={{duration:0.4, ease:"easeInOut"}}
+           className="lg:hidden bg-white border-t border-gray-200 px-4 py-4 space-y-2">
             {navItems.map(({ to, label, icon }) => (
               <NavLink
                 key={to}
@@ -130,7 +135,7 @@ export default function Header() {
                 Get Started
               </Link>
             </div>
-          </div>
+          </motion.div>
         )}
       </header>
     </div>
