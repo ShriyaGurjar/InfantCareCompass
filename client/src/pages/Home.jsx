@@ -63,22 +63,17 @@ const HomePage = () => {
   );
 
   const GlassCard = ({ children, className = "", hover = true }) => (
-  <div
-    className={`
+    <div
+      className={`
       backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl
       shadow-2xl transition-all duration-500 ease-out
-      ${
-        hover
-          ? "hover:bg-white/20 hover: hover:shadow-3xl "
-          : ""
-      }
+      ${hover ? "hover:bg-white/20 hover: hover:shadow-3xl " : ""}
       ${className}
     `}
-  >
-    {children}
-  </div>
-);
-
+    >
+      {children}
+    </div>
+  );
 
   const services = [
     {
@@ -310,21 +305,21 @@ const HomePage = () => {
           >
             {services.map((service, index) => (
               <SwiperSlide key={index} className="!w-80 !flex-shrink-0">
-                <div className="bg-white text-black p-6 rounded-2xl shadow-xl text-center">
+                <GlassCard className="p-6 text-white text-center">
                   <div
                     className={`bg-gradient-to-br ${service.color} p-4 rounded-full inline-block`}
                   >
                     {service.icon}
                   </div>
                   <h3 className="text-xl font-bold mt-4">{service.title}</h3>
-                  <p className="text-gray-600 mt-2">{service.description}</p>
+                  <p className="text-white-600 mt-2">{service.description}</p>
                   <img
                     src={service.image}
                     alt={service.title}
                     className="mt-4 rounded-xl w-full h-40 object-cover"
                   />
                   <p className="mt-3 text-blue-600 font-medium">Learn More →</p>
-                </div>
+                </GlassCard>
               </SwiperSlide>
             ))}
           </Swiper>
