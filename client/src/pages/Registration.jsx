@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { User, UserCheck, Mail, Lock, Phone, MapPin, Calendar, FileText, Award, Heart } from "lucide-react";
+import { User, UserCheck, Mail, Lock, Phone, MapPin, Calendar, FileText, Award, Heart,Eye,EyeOff } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
 
 // Define InputField outside the main component to prevent re-creation on render
-const InputField = ({ icon: Icon, label, type = "text", name, value, onChange, error, ...props }) => (
+const InputField = ({ icon: Icon, label, type = "text", name, value,onToggleShowPassword,showPassword, onChange, error, ...props }) => (
+  
   <div className="group relative">
     <label className="block text-sm font-semibold text-gray-700 mb-2">{label}</label>
     <div className="relative">
@@ -14,14 +15,27 @@ const InputField = ({ icon: Icon, label, type = "text", name, value, onChange, e
         <Icon className="h-5 w-5 text-gray-400" />
       </div>
       <input
-        type={type}
+        type={name === 'password' && showPassword ? 'text' : type}
         name={name}
         value={value || ''}
         onChange={(e) => onChange(name, e.target.value)}
         className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 focus:bg-white"
         {...props}
       />
+      {name === 'password' && (
+              <button
+                type="button"
+                onClick={onToggleShowPassword}
+                className="absolute right-4 top-4 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </button>
+      )}    
+        
     </div>
+    
+
+
     {error && (
       <p className="mt-2 text-sm text-red-600 animate-pulse">{error}</p>
     )}
@@ -53,10 +67,16 @@ const TextAreaField = ({ icon: Icon, label, name, value, onChange, error, ...pro
 
 
 export default function Registration() {
+
+  const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState("PARENT");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
+
+  const onToggleShowPassword =()=>{
+    setShowPassword(!showPassword);
+  }
 
   const handleRoleChange = (newRole) => {
     setRole(newRole);
@@ -212,8 +232,9 @@ export default function Registration() {
 
           {/* Common Fields */}
           <InputField icon={Mail} label="Email" name="email" type="email" placeholder="Enter your email" value={formData.email} onChange={handleInputChange} error={errors.email} />
-          <InputField icon={Lock} label="Password" name="password" type="password" placeholder="Create a strong password" value={formData.password} onChange={handleInputChange} error={errors.password} />
+          <InputField icon={Lock} label="Password" name="password" type="password" placeholder="Create a strong password" value={formData.password} onChange={handleInputChange} showPassword={showPassword}  onToggleShowPassword={onToggleShowPassword} error={errors.password} />
 
+          
           {/* Submit */}
           <button
             type="submit"
