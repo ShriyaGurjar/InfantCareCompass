@@ -1,0 +1,51 @@
+name: Auto Comment, Assign & Label on Issues
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  comment-assign-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment on Issue
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            👋 Thanks for opening this issue!
+
+            Before you start, here are a few things to help you get started quickly:
+
+            ### 📹 Getting Started Video Guides:
+
+            - 🔁 [How to Clone the Repo](available soon)
+            - 🧰 [How to Set Up the Project Locally](https://youtu.be/yG0IZepwsko)
+            - 📥 [How to Raise a Pull Request](available soon)
+
+            ### ✅ Checklist:
+            - [ ] Star the repo ⭐
+            - [ ] Pull the latest changes 🔄
+            - [ ] Include screenshots or video demos in your PR 📸
+
+            > 🛠 **Happy Contributing!** 🚀  
+            > 💬 Feel free to ask questions in the [Discussions](../../discussions) or comment section.  
+            > 👨‍💻 Your PA: [@amarjha01](https://github.com/amarjha01) &nbsp;&nbsp;|&nbsp;&nbsp; 👨‍🏫 Mentor: [@CHHemant](https://github.com/CHHemant)
+            📣 Join our Discord Community: [Click to Join](https://discord.gg/vg5ZuD9B)
+      - name: Add Labels
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: |
+            GSSoC'25
+            enhancement
+
+      - name: Assign User
+        uses: actions-ecosystem/action-add-assignees@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          assignees: ${{ github.event.issue.user.login }}

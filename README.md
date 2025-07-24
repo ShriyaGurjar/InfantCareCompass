@@ -108,6 +108,11 @@ Create a .env file in the root directory and add the following:
 
 ---
 
+### License
+
+This project is licensed under the [MIT License](LICENSE).  
+You’re free to use, modify, and share this software under the license terms.
+
 ### Contributing
 
 We welcome contributions to enhance the functionality and features of InfantCareCompass.
@@ -133,6 +138,30 @@ Submit a pull request detailing your changes.
 
 # Contributors
 
-Thanks to these amazing people for helping build InfantCareCompass!
 
-<a href="https://github.com/Amarjha01/InfantCareCompass/graphs/contributors"> <img src="https://contrib.rocks/image?repo=Amarjha01/InfantCareCompass" /> </a>
+
+<h3 align="center">🙏 Thanks to These Amazing People for Helping Build <strong>InfantCareCompass</strong>!</h3>
+
+<p align="center">
+  <!-- Vaunt.dev (auto-updating SVG contributors graph) -->
+  <a href="https://github.com/Amarjha01/InfantCareCompass/graphs/contributors">
+    <img 
+      src="https://api.vaunt.dev/v1/github/entities/Amarjha01/repositories/InfantCareCompass/contributors?format=svg&limit=54" 
+      width="700" 
+      height="250" 
+      alt="Contributors Graph by Vaunt.dev" 
+    />
+  </a>
+</p>
+
+<p align="center">
+  <!-- Contrib.rocks (profile avatars grid) -->
+  <a href="https://github.com/Amarjha01/InfantCareCompass/graphs/contributors">
+    <img 
+      src="https://contrib.rocks/image?repo=Amarjha01/InfantCareCompass&max=300" 
+      alt="GitHub Contributors Avatars" 
+    />
+  </a>
+</p>
+
+<h3 align="center">🔄 Auto-Updating with New Contributors!</h3>

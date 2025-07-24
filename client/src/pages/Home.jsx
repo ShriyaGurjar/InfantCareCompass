@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
 import {
   Heart,
   Shield,
@@ -14,9 +15,12 @@ import {
   Calendar,
 } from "lucide-react";
 
+
 const HomePage = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState({});
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -25,6 +29,7 @@ const HomePage = () => {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
 
   const handleIntersection = (entries) => {
     entries.forEach((entry) => {
@@ -102,6 +107,7 @@ const HomePage = () => {
       image:
         "https://res.cloudinary.com/dbnticsz8/image/upload/v1734935847/Infant%20care%20Compass/yf0tea4dqhjf4ww3hjcz.png",
       href: "/learningHub-all",
+
     },
   ];
 
@@ -133,6 +139,24 @@ const HomePage = () => {
       avatar:
         "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop&crop=face",
     },
+    {
+      name: "Samuel Lee",
+      role: "Father of Two",
+      content:
+        "The community support and expert consultations saved us countless sleepless nights. Truly revolutionary!",
+      rating: 5,
+      avatar:
+        "https://images.unsplash.com/photo-1545167622-3a6ac756afa4?w=100&h=100&fit=crop&crop=face",
+    },
+    {
+      name: "julie Smith",
+      role: "Pediatric Nurse",
+      content:
+        "As a healthcare professional, I'm impressed by the accuracy and quality of information. I recommend it to all my patients.",
+      rating: 5,
+      avatar:
+        "https://images.unsplash.com/photo-1512288094938-363287817259?w=100&h=100&fit=crop&crop=face",
+    },
   ];
 
   return (
@@ -150,6 +174,7 @@ const HomePage = () => {
         ></div>
       </div>
 
+
       {/* Mouse Follower Effect */}
       <div
         className="fixed w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full pointer-events-none z-50 opacity-60 blur-sm transition-all duration-100"
@@ -159,6 +184,8 @@ const HomePage = () => {
           transform: "translate3d(0, 0, 0)",
         }}
       ></div>
+
+
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-6">
@@ -253,7 +280,7 @@ const HomePage = () => {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-32 relative">
+      <section id="services" className="py-32 relative overflow-x-visible z-10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
@@ -264,8 +291,27 @@ const HomePage = () => {
               an intuitive, supported experience.
             </p>
           </div>
-
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+          <Swiper
+            effect="coverflow"
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView={"auto"}
+            coverflowEffect={{
+              rotate: 30,
+              stretch: 0,
+              depth: 200,
+              modifier: 1,
+              scale: 0.9,
+              slideShadows: true,
+            }}
+            autoplay={{
+              delay: 2500, // 2.5 seconds
+              disableOnInteraction: false, // Keeps autoplay running after user swipe
+            }}
+            pagination={{ clickable: true }}
+            modules={[EffectCoverflow, Pagination, Autoplay]}
+            className="w-full max-w-6xl mx-auto"
+          >
             {services.map((service, index) => (
               <div key={index} className="group relative">
                 <GlassCard className="p-8 h-full group-hover:bg-white/15">
@@ -299,16 +345,25 @@ const HomePage = () => {
                       Learn More
                       <ArrowRight className="w-4 h-4" />
                     </Link>
+
                   </div>
+                  <h3 className="text-xl font-bold mt-4">{service.title}</h3>
+                  <p className="text-white-600 mt-2">{service.description}</p>
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="mt-4 rounded-xl w-full h-40 object-cover"
+                  />
+                  <p className="mt-3 text-blue-600 font-medium">Learn More →</p>
                 </GlassCard>
-              </div>
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         </div>
       </section>
 
       {/* Experience Section */}
-      <section className="py-32 relative">
+      <section className="py-32 relative bg-black/5 overflow-x-visible">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
