@@ -10,7 +10,11 @@ import Signin from "../pages/SignIn";
 import HomePage from "../pages/Home";
 import ConsultationPage from "../pages/consult.jsx";
 import VideoRoom from '../pages/VideoRoom.jsx'
+
 import VaccineReminder from "../pages/VaccineReminder.jsx";
+
+
+import NotFoundPage from "../pages/NotFoundPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -47,11 +51,19 @@ const router = createBrowserRouter([
           },
         ],
       },
+
       {
         path: "vaccineReminder",
         element: <VaccineReminder />,
       }
     
+
+    {
+        path: "*",
+        element: <NotFoundPage />,
+        handle: { noLayout: true },
+      },
+
      
    
     ],
@@ -68,6 +80,11 @@ const router = createBrowserRouter([
     path: "room/:roomId",
     element: <VideoRoom />, // Route for VideoCall component
   },
+  {
+        path: "*",
+        element: <NotFoundPage />,
+        handle: { noLayout: true },
+      },
 ]);
 
 export default router;
