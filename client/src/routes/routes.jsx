@@ -10,11 +10,7 @@ import Signin from "../pages/SignIn";
 import HomePage from "../pages/Home";
 import ConsultationPage from "../pages/consult.jsx";
 import VideoRoom from '../pages/VideoRoom.jsx'
-
-import VaccineReminder from "../pages/VaccineReminder.jsx";
-
-
-import NotFoundPage from "../pages/NotFoundPage.jsx";
+import LearningHubAll from "../pages/LearningHubAll.jsx";
 
 const router = createBrowserRouter([
   {
@@ -51,21 +47,10 @@ const router = createBrowserRouter([
           },
         ],
       },
-
       {
-        path: "vaccineReminder",
-        element: <VaccineReminder />,
-      },
-    
-
-    {
-        path: "*",
-        element: <NotFoundPage />,
-        handle: { noLayout: true },
-      },
-
-     
-   
+        path: "learningHub-all",
+        element: <LearningHubAll />
+      }      
     ],
   },
   {
