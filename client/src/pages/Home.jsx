@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
 import {
   Heart,
   Shield,
@@ -14,7 +12,12 @@ import {
   Phone,
   Calendar,
 } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
 
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
 
 const HomePage = () => {
   const [isVisible, setIsVisible] = useState({});
@@ -67,11 +70,7 @@ const HomePage = () => {
       className={`
       backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl
       shadow-2xl transition-all duration-500 ease-out
-      ${
-        hover
-          ? "hover:bg-white/20 hover:scale-105 hover:shadow-3xl hover:-translate-y-2"
-          : ""
-      }
+      ${hover ? "hover:bg-white/20 hover: hover:shadow-3xl " : ""}
       ${className}
     `}
     >
@@ -106,8 +105,6 @@ const HomePage = () => {
       color: "from-pink-500 to-rose-600",
       image:
         "https://res.cloudinary.com/dbnticsz8/image/upload/v1734935847/Infant%20care%20Compass/yf0tea4dqhjf4ww3hjcz.png",
-      href: "/learningHub-all",
-
     },
   ];
 
@@ -119,7 +116,7 @@ const HomePage = () => {
         "The AI-powered insights helped me understand my baby's needs like never before. It's like having a pediatrician in your pocket!",
       rating: 5,
       avatar:
-        "https://images.unsplash.com/photo-1494790108755-2616b9b39d18?w=100&h=100&fit=crop&crop=face",
+        "https://images.unsplash.com/photo-1509868918748-a554ad25f858?w=100&h=100&fit=crop&crop=face",
     },
     {
       name: "Michael Rodriguez",
@@ -313,39 +310,12 @@ const HomePage = () => {
             className="w-full max-w-6xl mx-auto"
           >
             {services.map((service, index) => (
-              <div key={index} className="group relative">
-                <GlassCard className="p-8 h-full group-hover:bg-white/15">
-                  <div className="relative">
-                    <div
-                      className={`w-20 h-20 rounded-2xl bg-gradient-to-r ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
-                    >
-                      {service.icon}
-                    </div>
-
-                    <h3 className="text-2xl font-bold mb-4 text-white">
-                      {service.title}
-                    </h3>
-
-                    <p className="text-gray-300 leading-relaxed mb-6">
-                      {service.description}
-                    </p>
-
-                    <div className="overflow-hidden rounded-xl mb-6">
-                      <img
-                        src={service.image}
-                        alt={service.title}
-                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-
-                    <Link
-                      to="/learningHub-all"
-                      className="text-blue-400 hover:text-blue-300 font-medium flex items-center gap-2 group-hover:gap-3 transition-all"
-                    >
-                      Learn More
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-
+              <SwiperSlide key={index} className="!w-80 !flex-shrink-0">
+                <GlassCard className="p-6 text-white text-center">
+                  <div
+                    className={`bg-gradient-to-br ${service.color} p-4 rounded-full inline-block`}
+                  >
+                    {service.icon}
                   </div>
                   <h3 className="text-xl font-bold mt-4">{service.title}</h3>
                   <p className="text-white-600 mt-2">{service.description}</p>
@@ -432,40 +402,60 @@ const HomePage = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={30}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+            }}
+            pagination={{ clickable: true }}
+            breakpoints={{
+              768: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+            }}
+            modules={[Autoplay, Pagination]}
+            className="w-full overflow-visible pb-10"
+          >
             {testimonials.map((testimonial, index) => (
-              <GlassCard key={index} className="p-8 relative group">
-                <div className="flex items-center gap-2 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 fill-yellow-400 text-yellow-400"
+              <SwiperSlide key={index}>
+                <GlassCard className="p-8 relative group" hover={true}>
+                  <div className="flex items-center gap-2 mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-5 h-5 fill-yellow-400 text-yellow-400"
+                      />
+                    ))}
+                  </div>
+
+                  <p className="text-gray-300 mb-6 leading-relaxed italic">
+                    "{testimonial.content}"
+                  </p>
+
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={testimonial.avatar}
+                      alt={testimonial.name}
+                      className="w-12 h-12 rounded-full object-cover"
                     />
-                  ))}
-                </div>
-
-                <p className="text-gray-300 mb-6 leading-relaxed italic">
-                  "{testimonial.content}"
-                </p>
-
-                <div className="flex items-center gap-4">
-                  <img
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
-                  <div>
-                    <div className="font-semibold text-white">
-                      {testimonial.name}
-                    </div>
-                    <div className="text-gray-400 text-sm">
-                      {testimonial.role}
+                    <div>
+                      <div className="font-semibold text-white">
+                        {testimonial.name}
+                      </div>
+                      <div className="text-gray-400 text-sm">
+                        {testimonial.role}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </GlassCard>
+                </GlassCard>
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         </div>
       </section>
 
