@@ -10,6 +10,7 @@ import Signin from "../pages/SignIn";
 import HomePage from "../pages/Home";
 import ConsultationPage from "../pages/consult.jsx";
 import VideoRoom from '../pages/VideoRoom.jsx'
+import LearningHubAll from "../pages/LearningHubAll.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -45,8 +46,10 @@ const router = createBrowserRouter([
           },
         ],
       },
-    
-     
+      {
+        path: "learningHub-all",
+        element: <LearningHubAll />
+      }     
    
     ],
   },
